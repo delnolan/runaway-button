@@ -1,0 +1,78 @@
+<!Doctype>
+<html>
+<head>
+    <style>
+        .button-container{
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            background-color: aliceblue;
+        }
+        #runaway-button{
+            background-color: green;
+            color: aliceblue;
+            border-radius: 3px;
+            position: absolute;
+            width: 150px;
+            text-align: center;
+            padding-top: 8px;
+            padding-bottom: 9px;
+            cursor: pointer;
+            top: calc(50% - 25px);
+            left: calc(50% - 25px);
+            transition: 0.05s ease;
+            -webkit-transition: 0.05s ease;
+        }
+        body, html{
+            width: 100%;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="button-container"></div>
+<div id="runaway-button">Contact Us</div>
+</body>
+</html>
+<script>
+
+    var offset = 40;
+
+    document.addEventListener('mousemove' , function(e){
+        var runaway_button = document.getElementById('runaway-button');
+        var button_top = runaway_button.offsetTop;
+        var button_left = runaway_button.offsetLeft;
+
+        var button_width = 150;
+        var button_height = 50;
+        var mouseX = e.clientX;
+        var mouseY = e.clientY
+
+        if(((button_top - mouseY)  <= offset) && ((button_top - mouseY) >= 0)
+            &&((button_left - offset) < mouseX)
+            &&((button_left + button_width + offset) > mouseX)
+        ){
+            runaway_button.style.top = mouseY + offset;
+        }
+        if(((button_left - mouseX) <= offset) && ((button_left - mouseX) >= 0)
+            &&((button_top - offset < mouseY))
+            &&(button_top + button_height + offset > mouseY)
+        ){
+            runaway_button.style.left = mouseX + offset;
+        }
+        if(((mouseY - (button_top + button_height)) <= offset) && ((mouseY - (button_top + button_height)) >= 0)
+            &&((button_left - offset) < mouseX)
+            &&((button_left + button_width + offset) > mouseX)
+        ){
+            runaway_button.style.top = mouseY - button_height - offset;
+        }
+        if(((mouseX - (button_left + button_width)) <= offset) && ((mouseX - (button_left + button_width)) >= 0)
+            &&((button_top - offset < mouseY))
+            &&(button_top + button_height + offset > mouseY)
+        ){
+            runaway_button.style.left = mouseX - button_width - offset;
+        }
+    });
+</script>
